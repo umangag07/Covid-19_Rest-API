@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
+const mongoose = require('mongoose')
+require('dotenv/config')
 // middlewares
 app.use(cors());
 app.use(bodyParser.json());
@@ -19,4 +20,7 @@ app.use((req, res, next) => {
   next();
 });
 
+mongoose.connect(process.env.DB_CONNECTION,{useNewUrlParser:true,useUnifiedTopology:true},()=>{
+  console.log("connected to database")
+})
 module.exports = app;
