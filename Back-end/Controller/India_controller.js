@@ -30,3 +30,38 @@ exports.postData = (req, res) => {
         .catch(err => res.send({ error: err }))
 
 }
+exports.retriveSpecificData = async (req, res) => {
+    try {
+        const name = req.params;
+        // console.log("params", name);
+        var querry = { state: name.statename }
+        // console.log("querry", querry);
+        const Data = Data_India.find(querry)
+            .then(response => {
+                // console.log(response, response.length)
+                if (response.length >= 1) {
+                    // console.log(response)
+                    res.send(response)
+                }
+                else {
+                    res.send(
+                        {
+                            error_message: "Data not found",
+                            message: "Specify the state properly"
+                        })
+                }
+            })
+            .catch(err => { console.log(err); res.send({ message: err }); })
+
+    } catch (err) {
+        res.send({ error: err })
+    }
+}
+
+exports.deleteData = (req,res)=>{
+    var querry = {state:/[abc]/i}
+    Data_India.deleteMany(querry)
+    .then(response=>res.send({message:response}))
+    .catch(err=>res.send({errormessage:err}))
+  
+}
