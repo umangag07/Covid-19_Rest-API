@@ -10,9 +10,9 @@ app.use(bodyParser.json());
 
 //Routes
 const getData_World = require("./Routes/Data_World_Route");
-app.use("/getData_World", getData_World);
+app.use("/covid_data_world", getData_World);
 const getData_India = require("./Routes/Data_India_Route");
-app.use("/getData_India", getData_India);
+app.use("/covid_data_india", getData_India);
 
 app.use((req, res, next) => {
   res.send({ message: "working" });
