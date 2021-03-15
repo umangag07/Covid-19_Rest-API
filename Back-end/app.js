@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose')
+const cronjob = require('./Cron_job')
 require('dotenv/config')
 // middlewares
 app.use(cors());
@@ -23,4 +24,6 @@ app.use((req, res, next) => {
 mongoose.connect(process.env.DB_CONNECTION,{useNewUrlParser:true,useUnifiedTopology:true},()=>{
   console.log("connected to database")
 })
+
+
 module.exports = app;
