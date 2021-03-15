@@ -4,7 +4,7 @@ const Data_India = require('../Model/Data_India')
 exports.retriveData = async (req, res) => {
     try {
         const Data = await Data_India.find()
-        res.send({ data: Data })
+        res.send( Data )
 
     } catch (err) {
         res.send({ error: "Data could not be fetched" })
