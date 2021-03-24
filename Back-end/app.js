@@ -14,6 +14,8 @@ const getData_World = require("./Routes/Data_World_Route");
 app.use("/covid_data_world", getData_World);
 const getData_India = require("./Routes/Data_India_Route");
 app.use("/covid_data_india", getData_India);
+const getTotalData_India = require("./Routes/Total_Data_India");
+app.use("/total_covid_cases_india",getTotalData_India);
 
 app.use((req, res, next) => {
   res.send({ message: "working" });
