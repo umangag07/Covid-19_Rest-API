@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 const I_Schema = mongoose.Schema({
+    Day:{
+      type:Number,
+      required:true
+    },
     Data_date:{
       type:Date,
       required:true

@@ -12,6 +12,7 @@ exports.retriveData = async (req, res) => {
 }
 exports.postData = (req, res) => {
     const new_data = new Total_India_Data({
+        Day:req.body.Day,
         Data_date: req.body.Data_date,
         TotalConfirmed: req.body.TotalConfirmed,
         TotalDeaths: req.body.TotalDeaths,
@@ -27,9 +28,12 @@ exports.postData = (req, res) => {
 
 }
 exports.deleteData = (req,res)=>{
-    var querry = {TotalConfirmed:/[0-9]/}
-    Total_India_Data.deleteMany(querry)
-    .then(response=>res.send({message:response}))
-    .catch(err=>res.send({errormessage:err}))
+    Total_India_Data.collection.deleteMany({},(err,delOk)=>{
+        if(err){
+            res.send(err);
+        }else{
+           res.send(delOk);
+        }
+    })
   
 }

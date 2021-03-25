@@ -1,9 +1,9 @@
 const { default: axios } = require("axios");
 var cron = require("node-cron");
-var count = 0;
+const Total_IndiaCases_Model = require("./Model/Total_CovidCases_India");
 function schedule() {
   // everyday at 7am cronjob is scheduled
-  cron.schedule(" 0 7 * * *", async () => {
+  cron.schedule(" 08 12 * * *", async () => {
     // var d = new Date();
     // console.log(`Task was done at ${d.toTimeString()}`);
     try {
@@ -14,26 +14,34 @@ function schedule() {
       const Total_data = data.cases_time_series;
       const data_length = Total_data.length;
       const required_data = Total_data[data_length - 1];
+      const Db_data = await Total_IndiaCases_Model.find();
+      const Db_data_length = Db_data.length;
+      console.log(Db_data.length);
       console.log(required_data);
-      let payload = {
-        Data_date: required_data.dateymd,
-        TotalConfirmed: required_data.totalconfirmed,
-        TotalDeaths: required_data.totaldeceased,
-        TotalRecovered: required_data.totalrecovered,
-        DailyConfirmed: required_data.dailyconfirmed,
-        DailyDeaths: required_data.dailydeceased,
-        DailyRecovered: required_data.dailyrecovered,
-      };
-      try {
-        let res = await axios.post(
-          "http://localhost:3000/total_covid_cases_india/post_data",
-          payload
-        );
-        console.log(res.data);
-      }catch (error) {
-        console.log(error);
+      if (data_length > Db_data_length) {
+        let payload = {
+          Day: data_length,
+          Data_date: required_data.dateymd,
+          TotalConfirmed: required_data.totalconfirmed,
+          TotalDeaths: required_data.totaldeceased,
+          TotalRecovered: required_data.totalrecovered,
+          DailyConfirmed: required_data.dailyconfirmed,
+          DailyDeaths: required_data.dailydeceased,
+          DailyRecovered: required_data.dailyrecovered,
+        };
+        try {
+          let res = await axios.post(
+            "http://localhost:3000/total_covid_cases_india/post_data",
+            payload
+          );
+          console.log(res.data);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        console.log("original data not updated yet");
       }
-    }catch (error) {
+    } catch (error) {
       console.log(error);
     }
   });
