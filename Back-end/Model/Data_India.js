@@ -43,10 +43,6 @@ const IndiaSchema = mongoose.Schema({
     statecode:{
         type:String,
         required:true
-    },
-    statenotes:{
-        type:String,
-        required:true
     }
 
 })

@@ -23,7 +23,6 @@ exports.postData = (req, res) => {
         recovered: req.body.recovered,
         state: req.body.state,
         statecode: req.body.statecode,
-        statenotes: req.body.statenotes
     });
     new_data.save()
         .then(response => res.send({ message: response }))
