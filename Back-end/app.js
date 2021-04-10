@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const cronjob = require('./Cron_job');
 require('dotenv/config');
+
 // middlewares
 app.use(cors());
 app.use(bodyParser.json());

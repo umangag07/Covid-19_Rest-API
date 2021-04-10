@@ -2,10 +2,11 @@ const { default: axios } = require("axios");
 var cron = require("node-cron");
 const Total_IndiaCases_Model = require("./Model/Total_CovidCases_India");
 const Total_WorldCases_Model = require("./Model/Total_CovidCases_World");
-require('dotenv/config');
+require("dotenv/config");
+
 function schedule() {
   // cronjob is scheduled for UPDATING TOTAL WORLD CASES
-  cron.schedule("38 20 * * *", async () => {
+  cron.schedule("25 16 * * *", async () => {
     const response = await axios.get(process.env.API_TOTAL_WORLD);
     var Data = response.data;
     var required_data = Data.result.pageContext.rawDataSets.byDay.rows;
@@ -13,8 +14,6 @@ function schedule() {
     var data_post = required_data;
     const Db_data = await Total_WorldCases_Model.find();
     const Db_data_length = Db_data.length;
-    console.log(Db_data.length);
-    console.log(required_data);
     if (data_length > Db_data_length) {
       for (let i = Db_data_length; i < data_length; i++) {
         let payload = {
@@ -27,23 +26,17 @@ function schedule() {
         };
         try {
           let res = await axios.post(process.env.POST_TOTAL_WORLD, payload);
-          console.log(res.data);
-
         } catch (error) {
-          console.log({ "Erro in post": error })
+          console.log({ "Erro in post": error });
         }
       }
     } else {
       console.log("original data not updated yet");
     }
-
-  })
+  });
 
   // cron job is schduled for UPDATING TOTAL INDIA CASES
-  cron.schedule(" 44 20 * * *", async () => {
-    // var d = new Date();
-    // console.log(`Task was done at ${d.toTimeString()}`);
-
+  cron.schedule("25 16 * * *", async () => {
     try {
       const response = await axios.get(process.env.API_TOTAL_INDIA);
       const data = response.data;
@@ -52,7 +45,6 @@ function schedule() {
       const required_data = Total_data;
       const Db_data = await Total_IndiaCases_Model.find();
       const Db_data_length = Db_data.length;
-      console.log("database length:",Db_data.length,"Data length",data_length);
       if (data_length > Db_data_length) {
         for (let i = Db_data_length; i < data_length; i++) {
           let payload = {
@@ -67,17 +59,13 @@ function schedule() {
           };
           try {
             let res = await axios.post(process.env.POST_TOTAL_INDIA, payload);
-            console.log(res.data);
           } catch (error) {
             console.log(error);
           }
         }
-
       } else {
         console.log("original data not updated yet");
       }
-
-
     } catch (error) {
       console.log(error);
     }
@@ -85,14 +73,15 @@ function schedule() {
 }
 
 // cronjob is scheduled for UPDATING INDIVIDUAL STATE DATA OF INDIA
-cron.schedule(" 38 20 * * * ", async () => {
+cron.schedule(" 01 17 * * * ", async () => {
   try {
-    axios.delete(process.env.DELETE_STATE_DATA);
+    axios
+      .delete(process.env.DELETE_STATE_DATA)
+      .then((response) => console.log("State data", response.data));
     const Response = await axios.get(process.env.API_TOTAL_INDIA);
     var Data = Response.data;
-    var required_data = Data.statewise;
-    const Data_length = required_data.length;
-    const Post_Data = required_data;
+    var Post_Data = Data.statewise;
+    const Data_length = Post_Data.length;
     for (let i = 0; i < Data_length; i++) {
       const payload = {
         active: Post_Data[i].active,
@@ -106,33 +95,28 @@ cron.schedule(" 38 20 * * * ", async () => {
         recovered: Post_Data[i].recovered,
         state: Post_Data[i].state,
         statecode: Post_Data[i].statecode,
-        statenotes: Post_Data[i].statenotes
-      }
+        statenotes: Post_Data[i].statenotes,
+      };
       try {
         let res = await axios.post(process.env.POST_INDIA_STATE, payload);
-        console.log(res.data);
-
       } catch (e) {
-        console.log({ "Message": "Data could not be updated" })
+        console.log({ Message: "Data could not be updated" });
       }
     }
-
-
   } catch (e) {
-    console.log({ "Message": e });
+    console.log({ Message: e });
   }
-
-})
+});
 
 // cronjob is scheduled for UPDATING WORLD DATA OF INDIVIDUAL COUNTRY
-cron.schedule(" 38 20 * * * ", async () => {
+cron.schedule(" 35 16 * * * ", async () => {
   try {
+    axios
+      .delete(process.env.DELETE_COUNTRY_DATA)
+      .then((response) => console.log(response));
     const Response = await axios.get(process.env.API_COUNTRY_DATA);
-    axios.delete(process.env.DELETE_COUNTRY_DATA);
-    var Data = Response.data;
-    var required_data = Data;
-    const Data_length = required_data.length;
-    const Post_Data = required_data;
+    var Post_Data = Response.data;
+    const Data_length = Post_Data.length;
     for (let i = 0; i < Data_length; i++) {
       const payload = {
         updated: Post_Data[i].updated,
@@ -165,22 +149,16 @@ cron.schedule(" 38 20 * * * ", async () => {
         activePerOneMillion: Post_Data[i].activePerOneMillion,
         recoveredPerOneMillion: Post_Data.recoveredPerOneMillion,
         criticalPerOneMillion: Post_Data.criticalPerOneMillion,
-      }
+      };
       try {
         let res = await axios.post(process.env.POST_COUNTRY, payload);
-        console.log(res.data);
-
       } catch (e) {
-        console.log({ "Message": "Data could not be updated" })
+        console.log({ Message: "Data could not be updated" });
       }
     }
-
-
-
   } catch (e) {
-    console.log({ "Message": e });
+    console.log({ Message: e });
   }
-
-})
+});
 
 module.exports = schedule();

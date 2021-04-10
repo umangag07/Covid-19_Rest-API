@@ -56,9 +56,8 @@ exports.retriveSpecificData = async (req, res) => {
         res.send({ error: err })
     }
 }
-
 exports.deleteData = (req,res)=>{
-    var querry = {state:/[abc]/i}
+    var querry = {active:/[0-9][0-9]/}
     Data_India.deleteMany(querry)
     .then(response=>res.send({message:response}))
     .catch(err=>res.send({errormessage:err}))
