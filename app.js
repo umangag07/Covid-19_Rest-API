@@ -20,10 +20,9 @@ app.use("/total_covid_cases_india",getTotalData_India);
 const getTotalData_World = require("./Routes/Total_Data_World");
 app.use("/total_covid_cases_world",getTotalData_World);
 
-app.use((req, res, next) => {
+app.use((req, res,) => {
   res.send({ message: "working" });
   console.log("server is working");
-  next();
 });
 
 mongoose.connect(process.env.DB_CONNECTION,{useNewUrlParser:true,useUnifiedTopology:true},()=>{
