@@ -5,10 +5,12 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const cronjob = require('./Cron_job');
 require('dotenv/config');
+cronjob;
 
 // middlewares
 app.use(cors());
 app.use(bodyParser.json());
+
 
 //Routes
 const getData_World = require("./Routes/Data_World_Route");
