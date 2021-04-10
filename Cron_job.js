@@ -6,7 +6,7 @@ require("dotenv/config");
 
 function schedule() {
   // cronjob is scheduled for UPDATING TOTAL WORLD CASES
-  cron.schedule("25 16 * * *", async () => {
+  cron.schedule("55 00 * * *", async () => {
     const response = await axios.get(process.env.API_TOTAL_WORLD);
     var Data = response.data;
     var required_data = Data.result.pageContext.rawDataSets.byDay.rows;
@@ -36,7 +36,7 @@ function schedule() {
   });
 
   // cron job is schduled for UPDATING TOTAL INDIA CASES
-  cron.schedule("25 16 * * *", async () => {
+  cron.schedule("55 00 * * *", async () => {
     try {
       const response = await axios.get(process.env.API_TOTAL_INDIA);
       const data = response.data;
@@ -73,7 +73,7 @@ function schedule() {
 }
 
 // cronjob is scheduled for UPDATING INDIVIDUAL STATE DATA OF INDIA
-cron.schedule(" 01 17 * * * ", async () => {
+cron.schedule(" 55 00 * * * ", async () => {
   try {
     axios
       .delete(process.env.DELETE_STATE_DATA)
@@ -109,7 +109,7 @@ cron.schedule(" 01 17 * * * ", async () => {
 });
 
 // cronjob is scheduled for UPDATING WORLD DATA OF INDIVIDUAL COUNTRY
-cron.schedule(" 35 16 * * * ", async () => {
+cron.schedule(" 55 00 * * * ", async () => {
   try {
     axios
       .delete(process.env.DELETE_COUNTRY_DATA)
