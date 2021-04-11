@@ -6,7 +6,7 @@ require("dotenv/config");
 
 function schedule() {
   // cronjob is scheduled for UPDATING TOTAL WORLD CASES
-  cron.schedule("10 01 * * *", async () => {
+  cron.schedule("22 23 * * *", async () => {
     const response = await axios.get(process.env.API_TOTAL_WORLD);
     var Data = response.data;
     var required_data = Data.result.pageContext.rawDataSets.byDay.rows;
@@ -26,6 +26,7 @@ function schedule() {
         };
         try {
           let res = await axios.post(process.env.POST_TOTAL_WORLD, payload);
+          console.log(res.data);
         } catch (error) {
           console.log({ "Erro in post": error });
         }
@@ -37,7 +38,7 @@ function schedule() {
   });
 
   // cron job is schduled for UPDATING TOTAL INDIA CASES
-  cron.schedule("10 01 * * *", async () => {
+  cron.schedule("22 23 * * *", async () => {
     try {
       const response = await axios.get(process.env.API_TOTAL_INDIA);
       const data = response.data;
@@ -60,6 +61,7 @@ function schedule() {
           };
           try {
             let res = await axios.post(process.env.POST_TOTAL_INDIA, payload);
+            console.log(res.data);
           } catch (error) {
             console.log(error);
           }
@@ -75,7 +77,7 @@ function schedule() {
 }
 
 // cronjob is scheduled for UPDATING INDIVIDUAL STATE DATA OF INDIA
-cron.schedule(" 10 01 * * * ", async () => {
+cron.schedule(" 22 23 * * * ", async () => {
   try {
     axios
       .delete(process.env.DELETE_STATE_DATA)
@@ -101,6 +103,7 @@ cron.schedule(" 10 01 * * * ", async () => {
       };
       try {
         let res = await axios.post(process.env.POST_INDIA_STATE, payload);
+        console.log(res.data);
       } catch (e) {
         console.log({ Message: "Data could not be updated" });
       }
@@ -112,7 +115,7 @@ cron.schedule(" 10 01 * * * ", async () => {
 });
 
 // cronjob is scheduled for UPDATING WORLD DATA OF INDIVIDUAL COUNTRY
-cron.schedule(" 10 01 * * * ", async () => {
+cron.schedule(" 22 23 * * * ", async () => {
   try {
     axios
       .delete(process.env.DELETE_COUNTRY_DATA)
@@ -155,6 +158,7 @@ cron.schedule(" 10 01 * * * ", async () => {
       };
       try {
         let res = await axios.post(process.env.POST_COUNTRY, payload);
+        console.log(res.data);
       } catch (e) {
         console.log({ Message: "Data could not be updated" });
       }
