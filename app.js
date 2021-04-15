@@ -3,7 +3,9 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const job_scheduler = require("./Job_scheduler");
+//const job_scheduler = require("./Job_scheduler");
+const cron_job = require("./Cron_job");
+
 require("dotenv/config");
 // middlewares
 app.use(cors());
