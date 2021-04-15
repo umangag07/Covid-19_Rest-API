@@ -5,8 +5,8 @@ const Total_WorldCases_Model = require("./Model/Total_CovidCases_World");
 require("dotenv/config");
 
 function schedule() {
-  // cronjob is scheduled for UPDATING TOTAL WORLD CASES
-  cron.schedule("12 18 * * *", async () => {
+  // cronjob is scheduled for: UPDATING TOTAL WORLD CASES EVERY 6HR
+  cron.schedule("0 */6 * * *", async () => {
     const response = await axios.get(process.env.API_TOTAL_WORLD);
     var Data = response.data;
     var required_data = Data.result.pageContext.rawDataSets.byDay.rows;
@@ -37,8 +37,8 @@ function schedule() {
     }
   });
 
-  // cron job is schduled for UPDATING TOTAL INDIA CASES
-  cron.schedule("12 18 * * *", async () => {
+  // cron job is schduled for: UPDATING TOTAL INDIA CASES : 6HR
+  cron.schedule("0 */6 * * *", async () => {
     try {
       const response = await axios.get(process.env.API_TOTAL_INDIA);
       const data = response.data;
@@ -76,8 +76,8 @@ function schedule() {
   });
 }
 
-// cronjob is scheduled for UPDATING INDIVIDUAL STATE DATA OF INDIA
-cron.schedule(" 12 18 * * * ", async () => {
+// cronjob is scheduled for: UPDATING INDIVIDUAL STATE DATA OF INDIA 2HR
+cron.schedule("0 */2 * * * ", async () => {
   try {
     axios
       .delete(process.env.DELETE_STATE_DATA)
@@ -114,8 +114,8 @@ cron.schedule(" 12 18 * * * ", async () => {
   }
 });
 
-// cronjob is scheduled for UPDATING WORLD DATA OF INDIVIDUAL COUNTRY
-cron.schedule(" 12 18 * * * ", async () => {
+// cronjob is scheduled for: UPDATING WORLD DATA OF INDIVIDUAL COUNTRY 2HR
+cron.schedule("0 */2 * * * ", async () => {
   try {
     axios
       .delete(process.env.DELETE_COUNTRY_DATA)
