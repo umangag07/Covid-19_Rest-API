@@ -77,7 +77,7 @@ function schedule() {
 }
 
 // cronjob is scheduled for: UPDATING INDIVIDUAL STATE DATA OF INDIA Every 2HR
-cron.schedule("0 */3 * * * ", async () => {
+cron.schedule("0 */2 * * * ", async () => {
   try {
     axios
       .delete(process.env.DELETE_STATE_DATA)
@@ -115,7 +115,7 @@ cron.schedule("0 */3 * * * ", async () => {
 });
 
 // cronjob is scheduled for: UPDATING WORLD DATA OF INDIVIDUAL COUNTRY Every 2HR
-cron.schedule("0 */3 * * * ", async () => {
+cron.schedule("0 */2 * * * ", async () => {
   try {
     axios
       .delete(process.env.DELETE_COUNTRY_DATA)
