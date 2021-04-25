@@ -10,6 +10,24 @@ exports.retriveData = async (req, res) => {
         res.send({ error: "Data could not be fetched" })
     }
 }
+exports.retriveRequiredData = async (req, res) => {
+    try {
+        const Data = await Data_India.find()
+        const requiredData = Data.map(f=>{
+            var unitData = {};
+            unitData.state = f.state;
+            unitData.active = f.active;
+            unitData.confirmed = f.confirmed;
+            unitData.deaths = f.deaths;
+            unitData.recovered = f.recovered;
+            return unitData;
+        })
+        res.send( requiredData );
+
+    } catch (err) {
+        res.send({ error: "Data could not be fetched" })
+    }
+}
 exports.postData = (req, res) => {
     const new_data = new Data_India({
         active: req.body.active,
