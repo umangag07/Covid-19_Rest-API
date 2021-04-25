@@ -9,6 +9,31 @@ exports.retriveData = async (req, res) => {
     res.send({ error: "Data could not be fetched" });
   }
 };
+exports.retriveRequiredData = async (req, res) => {
+  try {
+    const Data = await Data_World.find();
+    const requiredData = Data.map(f=>{
+      var unitData = {};
+      unitData.country = f.country;
+      unitData.cases = f.cases;
+      unitData.todayCases = f.todayCases;
+      unitData.activePerOneMillion = f.activePerOneMillion;
+      unitData.recoveredPerOneMillion = f.recoveredPerOneMillion;
+      unitData.criticalPerOneMillion = f.criticalPerOneMillion;
+      unitData.tests = f.tests
+      unitData.population = f.population;
+      unitData.deaths = f.deaths;
+      unitData.todayDeaths = f.todayDeaths;
+
+
+      return unitData;
+    });
+    console.log(requiredData);
+    res.send(requiredData);
+  } catch (err) {
+    res.send({ error: "Data could not be fetched" });
+  }
+};
 exports.retriveSpecificData = async (req, res) => {
   try {
     const name = req.params;
