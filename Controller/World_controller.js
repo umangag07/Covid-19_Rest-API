@@ -100,7 +100,7 @@ exports.postData = (req, res) => {
     .catch((err) => res.send({ error: err }));
 };
 exports.deleteData = (req, res) => {
-  var querry = { country: /[abc]/i };
+  var querry = { country: /^[a-zA-Z]{0,}/ };
   Data_World.deleteMany(querry)
     .then((response) => res.send({ message: response }))
     .catch((err) => res.send({ errormessage: err }));
