@@ -17,13 +17,14 @@ exports.retriveRequiredData = async (req, res) => {
       unitData.country = f.country;
       unitData.cases = f.cases;
       unitData.todayCases = f.todayCases;
-      unitData.activePerOneMillion = f.activePerOneMillion;
-      unitData.recoveredPerOneMillion = f.recoveredPerOneMillion;
-      unitData.criticalPerOneMillion = f.criticalPerOneMillion;
-      unitData.tests = f.tests
-      unitData.population = f.population;
+      unitData.recovered = f.recovered;
+      unitData.todayRecovered = f.todayRecovered;
       unitData.deaths = f.deaths;
       unitData.todayDeaths = f.todayDeaths;
+      unitData.flag = f.countryInfo.flag;
+      unitData.tests = f.tests
+      unitData.population = f.population;
+      
 
 
       return unitData;

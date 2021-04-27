@@ -17,45 +17,41 @@ const World_Schema = mongoose.Schema({
     long: { type: Number },
     flag: { type: String },
   },
+  recovered:{
+   type: Number
+  },
+  todayRecovered: {
+    type: Number,
+  },
   cases: {
     type: Number,
-    default: 0,
   },
   todayCases: {
     type: Number,
-    default: 0,
   },
   deaths: {
     type: Number,
-    default: 0,
   },
   todayDeaths: {
     type: Number,
-    default: 0,
   },
   critical: {
     type: Number,
-    default: 0,
   },
   casesPerOneMillion: {
     type: Number,
-    default: 0,
   },
   deathsPerOneMillion: {
     type: Number,
-    default: 0,
   },
   tests: {
     type: Number,
-    default: 0,
   },
   testsPerOneMillion: {
     type: Number,
-    default: 0,
   },
   population: {
     type: Number,
-    default: 0,
   },
   continent: {
     type: String,
@@ -63,27 +59,21 @@ const World_Schema = mongoose.Schema({
   },
   oneCasePerPeople: {
     type: Number,
-    default: 0,
   },
   oneDeathPerPeople: {
     type: Number,
-    default: 0,
   },
   oneTestPerPeople: {
     type: Number,
-    default: 0,
   },
   activePerOneMillion: {
     type: Number,
-    default: 0,
   },
   recoveredPerOneMillion: {
     type: Number,
-    default: 0,
   },
   criticalPerOneMillion: {
     type: Number,
-    default: 0,
   },
 });
 
