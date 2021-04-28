@@ -10,8 +10,6 @@ require("dotenv/config");
 app.use(cors());
 app.use(bodyParser.json());
 
-
-
 mongoose.connect(
   process.env.DB_CONNECTION,
   { useNewUrlParser: true, useUnifiedTopology: true },
@@ -30,7 +28,7 @@ app.use("/total_covid_cases_india", getTotalData_India);
 const getTotalData_World = require("./Routes/Total_Data_World");
 app.use("/total_covid_cases_world", getTotalData_World);
 const predictedData = require("./Routes/PredictedData");
-app.use("/predictedData",predictedData);
+app.use("/predictedData", predictedData);
 
 //Base URl
 app.get("/", (req, res) => {
@@ -43,12 +41,20 @@ app.get("/", (req, res) => {
         "Request type(GET) will give you all the data in json format.",
       "/covid_data_world/get_data":
         "Request type(GET) will give you the data in json format.",
+      "/covid_data_world/get_data_table":
+        "Request type(GET) will give you the data in json format.(Filtered for table)",
       "/covid_data_world/get_data/Countryname":
         "Request type(GET), type the country name is capitalize format  will give you the data of specific country in json format.",
       "/covid_data_india/get_data":
         "Request type(GET) will give you the data in json format.",
+      "/covid_data_india/get_data_table":
+        "Request type(GET) will give you the data in json format.(Filtered for table)",
       "/covid_data_india/get_data/Statename":
         "Request type(GET), type the state name is capitalize format  will give you the data of specific state in json format.",
+      "/predictedData/india":
+        "Request type(GET) will give you the data in json format for India",
+      "/predictedData/world ":
+        " Request type(GET) will give you the data in json format for World",
     },
   });
 });
@@ -56,6 +62,5 @@ app.get("/", (req, res) => {
 app.get("*", (req, res) => {
   res.status(404).send({ Error: "It is not the correct URI endpoint" });
 });
-
 
 module.exports = app;
