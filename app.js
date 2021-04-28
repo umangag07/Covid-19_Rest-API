@@ -10,6 +10,16 @@ require("dotenv/config");
 app.use(cors());
 app.use(bodyParser.json());
 
+
+
+mongoose.connect(
+  process.env.DB_CONNECTION,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => {
+    console.log("connected to database");
+  }
+);
+
 //Routes
 const getData_World = require("./Routes/Data_World_Route");
 app.use("/covid_data_world", getData_World);
@@ -19,6 +29,8 @@ const getTotalData_India = require("./Routes/Total_Data_India");
 app.use("/total_covid_cases_india", getTotalData_India);
 const getTotalData_World = require("./Routes/Total_Data_World");
 app.use("/total_covid_cases_world", getTotalData_World);
+const predictedData = require("./Routes/PredictedData");
+app.use("/predictedData",predictedData);
 
 //Base URl
 app.get("/", (req, res) => {
@@ -45,12 +57,5 @@ app.get("*", (req, res) => {
   res.status(404).send({ Error: "It is not the correct URI endpoint" });
 });
 
-mongoose.connect(
-  process.env.DB_CONNECTION,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    console.log("connected to database");
-  }
-);
 
 module.exports = app;
