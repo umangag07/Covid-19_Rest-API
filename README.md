@@ -18,6 +18,6 @@
 * /covid_data_india/get_data_table  -: Request type(GET) will give you the data in json format.
 * /covid_data_india/get_data/Statename -: Request type(GET), type the state name is capitalize format  will give you the data of specific state in json format.
 
-## 5. 7b days predicted data
+## 5. 7 days predicted data
 * /predictedData/india -: Request type(GET) will give you the data in json format for India.
 * /predictedData/world -: Request type(GET) will give you the data in json format for World.
