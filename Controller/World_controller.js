@@ -21,7 +21,6 @@ exports.retriveRequiredData = async (req, res) => {
       unitData.todayRecovered = f.todayRecovered;
       unitData.deaths = f.deaths;
       unitData.todayDeaths = f.todayDeaths;
-      unitData.flag = f.countryInfo.flag;
       unitData.tests = f.tests
       unitData.population = f.population;
       
