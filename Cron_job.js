@@ -6,7 +6,7 @@ require("dotenv/config");
 
 function schedule() {
   // cronjob is scheduled for: UPDATING TOTAL WORLD CASES EVERY 3HR
-  cron.schedule("33 12 * * *", async () => {
+  cron.schedule("0 */3 * * *", async () => {
     const response = await axios.get(process.env.API_TOTAL_WORLD);
     var Data = response.data;
     var required_data = Data.result.pageContext.rawDataSets.byDay.rows;
