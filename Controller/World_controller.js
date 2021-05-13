@@ -34,6 +34,29 @@ exports.retriveRequiredData = async (req, res) => {
     res.send({ error: "Data could not be fetched" });
   }
 };
+exports.retriveRequiredMapData = async (req, res) => {
+  try {
+    const Data = await Data_World.find();
+    const requiredData = Data.map(f=>{
+      var unitData = {};
+      unitData.country = f.country;
+      unitData.cases = f.cases;
+      unitData.recovered = f.recovered;
+      unitData.deaths = f.deaths;
+      unitData.tests = f.tests;
+      unitData.population = f.population;
+      unitData.countryInfo = f.countryInfo;
+      
+
+
+      return unitData;
+    });
+    console.log(requiredData);
+    res.send(requiredData);
+  } catch (err) {
+    res.send({ error: "Data could not be fetched" });
+  }
+};
 exports.retriveSpecificData = async (req, res) => {
   try {
     const name = req.params;

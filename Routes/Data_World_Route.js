@@ -6,6 +6,8 @@ const World_controller = require("../Controller/World_controller");
 router.get("/get_data", World_controller.retriveData);
 // retriving the whole data required in table
 router.get("/get_data_table", World_controller.retriveRequiredData);
+// retriving the whole data required in map
+router.get("/get_data_map", World_controller.retriveRequiredMapData);
 // you can retrive the data of the specific state by providing the state name
 router.get("/get_data/:countryname", World_controller.retriveSpecificData);
 // posting the data to the database
