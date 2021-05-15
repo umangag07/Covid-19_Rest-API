@@ -10,7 +10,8 @@
 
 ## 3. Data of all the country 
 * /covid_data_world/get_data  -: Request type(GET) will give you the data in json format.
-* /covid_data_world/get_data_table  -: Request type(GET) will give you the data in json format.
+* /covid_data_world/get_data_table  -: Request type(GET) will give you the data in json format for world table
+* /covid_data_world/get_data_map  -: Request type(GET) will give you the data in json format for world map.
 * /covid_data_world/get_data/Countryname -: Request type(GET), type the country name is capitalize format  will give you the data of specific country in json format.
 
 ## 4. Data of all the India states 
